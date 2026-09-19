@@ -90,22 +90,16 @@
     </a>
 
     <?php if ((int) $tarifa['activo'] === 1): ?>
-        <form
-            action="<?= site_url('tarifas/desactivar/' . $tarifa['id']) ?>"
-            method="post"
-            class="d-inline"
-            onsubmit="return confirm('¿Está seguro de desactivar esta tarifa?');"
-        >
-            <?= csrf_field() ?>
-
-            <button
-                type="submit"
-                class="btn btn-sm btn-outline-danger"
-            >
-                Desactivar
-            </button>
-        </form>
-    <?php endif; ?>
+    <form id="form-desactivar-tarifa-<?= $tarifa['id'] ?>"
+          action="<?= site_url('tarifas/desactivar/' . $tarifa['id']) ?>" method="post" class="d-inline">
+        <?= csrf_field() ?>
+    </form>
+    <button type="button" class="btn btn-sm btn-outline-danger"
+            data-bs-toggle="modal" data-bs-target="#modalConfirmarTarifa"
+            data-form-id="form-desactivar-tarifa-<?= $tarifa['id'] ?>">
+        Desactivar
+    </button>
+<?php endif; ?>
 </td>
                     </tr>
 
@@ -122,5 +116,43 @@
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="modalConfirmarTarifa" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar desactivación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        ¿Está segura de que deseas desactivar esta tarifa?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="btnConfirmarTarifa">Sí, desactivar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?= $this->section('scripts') ?>
+<script>
+  (function () {
+    const modal = document.getElementById('modalConfirmarTarifa');
+    const btnConfirmar = document.getElementById('btnConfirmarTarifa');
+    let formActualId = null;
+
+    modal.addEventListener('show.bs.modal', function (evento) {
+      formActualId = evento.relatedTarget.getAttribute('data-form-id');
+    });
+
+    btnConfirmar.addEventListener('click', function () {
+      if (formActualId) {
+        document.getElementById(formActualId).submit();
+      }
+    });
+  })();
+</script>
+<?= $this->endSection() ?>
 
 <?= $this->endSection() ?>
