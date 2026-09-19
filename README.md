@@ -2,6 +2,15 @@
 
 Sistema web para la administración de clientes, contadores, tarifas, lecturas, pagos y recibos de una oficina municipal de agua potable. Proyecto desarrollado por el **Grupo 2 — Stack 1** como parte del curso de Desarrollo Web.
 
+
+## Cambio realizado — Examen parcial: Modo oscuro/claro
+
+Se agregó un botón para alternar entre modo claro y modo oscuro en el Panel principal (dashboard).
+
+- El botón cambia la apariencia visual de esa pantalla (fondo, tarjetas y textos) entre modo claro y modo oscuro.
+- La preferencia elegida se guarda en `localStorage` del navegador, por lo que persiste entre sesiones: si el usuario cierra sesión o cierra el navegador y vuelve a entrar, el sistema recuerda el modo que había seleccionado.
+- Archivo modificado: `app/Views/dashboard/index.php`.
+
 ## Demo en vivo
 
 El sistema está desplegado y disponible públicamente en:
