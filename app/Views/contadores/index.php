@@ -36,11 +36,14 @@
             <td><?= esc($c['sector']) ?></td>
             <td class="text-end">
               <a href="<?= site_url('contadores/editar/' . $c['id']) ?>" class="btn btn-sm btn-outline-primary">Editar</a>
-              <form action="<?= site_url('contadores/eliminar/' . $c['id']) ?>" method="post"
-                    class="d-inline" onsubmit="return confirm('¿Desactivar este contador?');">
-                <?= csrf_field() ?>
-                <button type="submit" class="btn btn-sm btn-outline-danger">Desactivar</button>
+              <form id="form-desactivar-contador-<?= $c['id'] ?>"
+                action="<?= site_url('contadores/eliminar/' . $c['id']) ?>" method="post" class="d-inline">
+              <?= csrf_field() ?>
               </form>
+                <button type="button" class="btn btn-sm btn-outline-danger"
+                  data-bs-toggle="modal" data-bs-target="#modalConfirmarContador"
+                   data-form-id="form-desactivar-contador-<?= $c['id'] ?>"> Desactivar
+                </button>
             </td>
           </tr>
         <?php endforeach; ?>
@@ -51,5 +54,43 @@
     </table>
   </div>
 </div>
+
+<div class="modal fade" id="modalConfirmarContador" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar desactivación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás segura de que deseas desactivar este contador?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="btnConfirmarContador">Sí, desactivar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?= $this->section('scripts') ?>
+<script>
+  (function () {
+    const modal = document.getElementById('modalConfirmarContador');
+    const btnConfirmar = document.getElementById('btnConfirmarContador');
+    let formActualId = null;
+
+    modal.addEventListener('show.bs.modal', function (evento) {
+      formActualId = evento.relatedTarget.getAttribute('data-form-id');
+    });
+
+    btnConfirmar.addEventListener('click', function () {
+      if (formActualId) {
+        document.getElementById(formActualId).submit();
+      }
+    });
+  })();
+</script>
+<?= $this->endSection() ?>
 
 <?= $this->endSection() ?>
