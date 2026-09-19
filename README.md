@@ -2,6 +2,25 @@
 
 Sistema web para la administración de clientes, contadores, tarifas, lecturas, pagos y recibos de una oficina municipal de agua potable. Proyecto desarrollado por el **Grupo 2 — Stack 1** como parte del curso de Desarrollo Web.
 
+
+## Cambios realizados — Examen parcial
+
+### 1. Modo oscuro/claro
+
+Se agregó un botón para alternar entre modo claro y modo oscuro en el Panel principal (dashboard).
+
+- El botón cambia la apariencia visual de esa pantalla (fondo, tarjetas y textos) entre modo claro y modo oscuro.
+- La preferencia elegida se guarda en `localStorage` del navegador, por lo que persiste entre sesiones.
+- Archivo modificado: `app/Views/dashboard/index.php`.
+
+### 2. Confirmación antes de eliminar
+
+Se reemplazó el uso de `confirm()` de JavaScript por un modal de confirmación de Bootstrap en dos acciones de eliminación/desactivación:
+
+- **Contadores**: al presionar "Desactivar" en el listado de contadores, ahora se muestra un modal pidiendo confirmación antes de ejecutar la acción.
+- **Tarifas**: al presionar "Desactivar" en el listado de tarifas, ocurre lo mismo.
+- Archivos modificados: `app/Views/contadores/index.php` y `app/Views/tarifas/index.php`.
+
 ## Demo en vivo
 
 El sistema está desplegado y disponible públicamente en:
